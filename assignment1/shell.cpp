@@ -45,18 +45,16 @@ int main()
 			 */
 		  else if (pid == 0)
 		    {
-		      fclose(stdout);
-		      fclose(stderr);
 
-		      if (execlp("/bin/ls", "ls", "child", cmdBuff.c_str(), NULL) < 0)
+		      if (execlp(cmdBuff.c_str(), cmdBuff.c_str(), (char*) NULL) < 0)
 			{
 			  perror("execlp");
 			  exit(1);
 			}
 		      else
 			{
-			  execlp("/bin/ls", "ls", "child", cmdBuff.c_str(), NULL);
-			}
+			  execlp(cmdBuff.c_str(), cmdBuff.c_str(), (char*) NULL);
+			} 
 		    }
 		  else {
 			/*** TODO: If I am a parent, I will do the following ***?
