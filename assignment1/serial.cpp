@@ -8,33 +8,13 @@
 #include <fstream>
 using namespace std;
 
-void readUrls(string& urls) {
-  ifstream urlFile("urls.txt");
-
-  string urlBuffer;
-
-  if (!urlFile.is_open()) {
-    fprintf(stderr, "Failed to open the file.");
-    exit (1);
-  }
-
-  while(!urlFile.eof()) {
-    urlFile >> urlBuffer;
-
-    if (!urlFile.eof())
-      urls.append(urlBuffer);
-  }
-
-  urlFile.close();
-}
-
 int main() {
   string urls;
   string urlBuffer;
   
   pid_t pid;
 
-  ifstream urlFile("urls.txt");
+  ifstream urlFile("test.txt");
 
   if (!urlFile.is_open()) {
     fprintf(stderr, "Failed to open the file.");
@@ -45,8 +25,9 @@ int main() {
   while(!urlFile.eof()) {
     urlFile >> urlBuffer;
 
-    if (!urlFile.eof())
+    if(!urlFile.eof())
       urls.append(urlBuffer);
+    urls.append(urlBuffer);
 
     pid = fork();
 
@@ -58,13 +39,13 @@ int main() {
     else if (pid == 0) {
 
       
-      if (execlp("/usr/bin/wget", "wget", urls, NULL) < 0) {
+      if (execlp("/usr/bin/wget", "wget", urls.c_str(), NULL) < 0) {
 	  perror("execlp:");
 	  exit(1);
 	}
 	
 	else {
-	  execlp("/usr/bin/wget", "wget", urls, NULL);
+	  execlp("/usr/bin/wget", "wget", urls.c_str(), NULL);
 	}
     }
 

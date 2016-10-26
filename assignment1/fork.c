@@ -31,11 +31,8 @@ void create_children(vector<string>& urls)
 			exit(1);
 		}
 		/* The child code */
-		if(pid == 0)
+		else if(pid == 0)
 		{	
-			
-	fclose(stdout);
-	fclose(stderr);
 			
 			/* Deploy wget */
 			if(execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL) < 0)
@@ -43,8 +40,15 @@ void create_children(vector<string>& urls)
 				perror("execlp");
 				exit(1);
 			}
+			else {
+			  execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL);
+			}
 				
 		}
+		else
+		  {
+		    wait(NULL);
+		  }
 	}	
 }
 
@@ -95,8 +99,6 @@ int main()
 	
 	/* Create child processes */
 	create_children(urls);
-	
-	wait(NULL);
 		
 	return 0;	
 	
