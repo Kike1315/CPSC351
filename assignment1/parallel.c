@@ -14,7 +14,8 @@ using namespace std;
 void create_children(vector<string>& urls)
 {	
 	/* The process id */
-	pid_t pid[];
+	pid_t pid;
+	int n;
 	
 	/* Go through all the URLs */
 	for(vector<string>::iterator urlIt = urls.begin();
@@ -22,7 +23,7 @@ void create_children(vector<string>& urls)
 	{
 		/* Create a child */
 		pid = fork();
-
+		n++;
 
 		/* Make sure the fork was a success */
 		if(pid < 0)
@@ -46,9 +47,13 @@ void create_children(vector<string>& urls)
 				
 		}
 		else {
-		  
+		
 		}
-	}	
+	}
+
+	for (int i = 0; i < n; i++) {
+	  wait(NULL);
+	}
 }
 
 /**
