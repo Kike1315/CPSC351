@@ -60,7 +60,7 @@ void create_children(vector<string>& urls)
 void readUrls(vector<string>& urls)
 {
 	/* Open the file */
-	ifstream urlFile("urls.txt");		
+	ifstream urlFile("test.txt");		
 	
 	/* The URL buffer */
 	string urlBuffer;
